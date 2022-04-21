@@ -8,7 +8,6 @@ public class Test {
     public static void main(String[] args){
         File file = new File("C:\\Users\\Vicho\\Desktop\\ruts.txt");
         try(Scanner scanner = new Scanner(file)){
-            //System.out.println(scanner.delimiter().pattern());
             scanner.useDelimiter(Pattern.compile(",*\\p{javaWhitespace}+"));
             AFD rut_parser = AFD.rut_test();
             Stream<String> file_tokens = scanner.tokens();
