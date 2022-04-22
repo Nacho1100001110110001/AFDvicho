@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Test {
     public static void main(String[] args){
-        File file = new File("C:\\Users\\Vicho\\Desktop\\ruts.txt");
+        File file = new File("C:\\Users\\Vicho\\IdeaProjects\\AFD\\src\\ruts.txt");
         try(Scanner scanner = new Scanner(file)){
             scanner.useDelimiter(Pattern.compile(",*\\p{javaWhitespace}+"));
             AFD rut_parser = AFD.rut_test();
@@ -19,14 +19,14 @@ public class Test {
             System.out.println(e.getMessage());
         }
     }
-    static void all_values(List<String> file_tokens, AFD afd){
+    public static void all_values(List<String> file_tokens, AFD afd){
         file_tokens
                 .stream()
                 .map(x-> x +": "+ afd.process(x))
                 .forEach(System.out::println);
         System.out.println();
     }
-    static void true_values(List<String> file_tokens, AFD afd){
+    public static void true_values(List<String> file_tokens, AFD afd){
         file_tokens
                 .stream()
                 .filter(afd::process)

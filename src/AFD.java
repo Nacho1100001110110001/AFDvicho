@@ -13,13 +13,16 @@ public class AFD {
 
     public AFD(int init_state, Set<Character> abc, Set<Integer> states, Set<Integer> final_states,
                HashMap<Character, int[]> func){
-        //if(init_state == null, abc ==null)
+        if(init_state < 0 || abc == null || states == null || final_states == null
+                || func == null) throw new InvalidParameterException("Null parameter or invalid init state");
+        if(abc.size() == 0 || states.size() == 0 || final_states.size() == 0
+                || func.size() == 0) throw new InvalidParameterException("Invalid size parameter");
         if(!AFD.is_valid_func(abc, states, func)) throw new InvalidParameterException("invalid function");
 
         this.init_state = init_state;
-        this.abc = abc;
-        this.states = states;
-        this.final_states = final_states;
+        this.abc = new HashSet<>(abc);
+        this.states = new HashSet<>(states);
+        this.final_states = new HashSet<>(final_states);
         this.func = func;
     }
 
@@ -45,7 +48,7 @@ public class AFD {
         return aux_process(sub_str, new_state);
     }
 
-    static boolean is_valid_func(Set<Character> afd_abc, Set<Integer> afd_states, HashMap<Character,int[]> function){
+    public static boolean is_valid_func(Set<Character> afd_abc, Set<Integer> afd_states, HashMap<Character,int[]> function){
         Set<Character> func_adc = new HashSet<>(function.keySet());
         Set<Character> aux_afd_abc = new HashSet<>(afd_abc);
 
@@ -64,21 +67,6 @@ public class AFD {
                     .reduce(true, (b1, b2)-> b1 && b2);
     }
 
-    public static HashMap<Character, int []> make_function(
-            Set<Character> index1,
-            Set<Integer> index2,
-            int[][] values){
-        if(!(values.length == index1.size() && values[0].length == index2.size())) return null;
-
-        HashMap<Character, int []> return_map = new HashMap<>();
-        int index = 0;
-        for(Character c: index1){
-            return_map.put(c, values[index]);
-            index++;
-        }
-
-        return return_map;
-    }
     public static Set<Integer> setOf(Integer... values) {
         return new HashSet<>(Arrays.asList(values));
     }
@@ -86,7 +74,7 @@ public class AFD {
         return new HashSet<>(Arrays.asList(values));
     }
 
-    static AFD rut_test(){
+    public static AFD rut_test(){
         Set<Character> abc = AFD.setOf('-', '.','0','1', '2' ,'3', '4','5', '6','7', '8','9', 'k');
         Set<Integer> states = AFD.setOf(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27);
         Set<Integer> final_states = AFD.setOf(10,18);
@@ -110,7 +98,7 @@ public class AFD {
         return new AFD(0, abc, states, final_states, function);
     }
 
-    static AFD nx3_test(){
+    public static AFD nx3_test(){
         Set<Character> abc = AFD.setOf('a', 'b');
         Set<Integer> states = AFD.setOf(0,1,2,3);
         Set<Integer> final_states = AFD.setOf(3);
