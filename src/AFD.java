@@ -5,9 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AFD {
-    //mejora al afd eliminar el set de states ya que los estados se obtienen implicitamente
-    //del tamaño de los arreglos.
-    //cualquier int menor al tamaño del arreglo y mayor a 0 pertenese al conjunto de los state.
     private final int init_state;
     private final Set<Character> abc;
     private final Set<Integer> final_states;
@@ -76,11 +73,12 @@ public class AFD {
     }
 
     public static AFD rut_test(){
-        Set<Character> abc = AFD.setOf('-', '.','0','1', '2' ,'3', '4','5', '6','7', '8','9', 'k');
+        Set<Character> abc = AFD.setOf('-', '.','0','1', '2' ,'3', '4','5', '6','7', '8','9', 'k', 'K');
         Set<Integer> final_states = AFD.setOf(10,18);
         HashMap<Character, int[]> function = new HashMap<>();
 
                                    //0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+        function.put('K', new int[]{27,27,27,27,27,27,27,27,10,10,27,27,27,27,27,27,27,10,10,27,27,27,27,27,27,27,10,27});
         function.put('k', new int[]{27,27,27,27,27,27,27,27,10,10,27,27,27,27,27,27,27,10,10,27,27,27,27,27,27,27,10,27});
         function.put('-', new int[]{27,27,27,27,27,27,27,27, 9,27,27,27,27,27,27,27,27, 9, 9,27,27,27,27,27,27,27, 9,27});
         function.put('.', new int[]{27,27,27,27,27,27,27,27,27,27,27,19,19,27,27,27,27,27,27,27,27,27,23,27,27,27,27,27});
