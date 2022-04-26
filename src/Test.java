@@ -26,8 +26,10 @@ public class Test {
         JTextArea textArea = new JTextArea(value);
         textArea.setEditable(false);
         textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        JOptionPane.showConfirmDialog(null,new JScrollPane(textArea), description, JOptionPane.OK_CANCEL_OPTION);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        JScrollPane scrollPane= new JScrollPane(textArea);
+        scrollPane.setPreferredSize( new Dimension( 300, 500 ) );
+        JOptionPane.showMessageDialog(null, scrollPane, description, JOptionPane.WARNING_MESSAGE);
     }
-
-
 }
